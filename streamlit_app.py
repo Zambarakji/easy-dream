@@ -59,13 +59,16 @@ if uploaded_file:
             st.success("✅ Simulation complete!")
 
             if view_option == "Predictions":
-                st.subheader("🔝 Top 5 Predicted Combinations")
-                for i, ((main, star), count) in enumerate(top_combos, 1):
-                    main_clean = [int(x) for x in tuple(main)]
-                    star_clean = [int(x) for x in tuple(star)]
-                    archive.append((datetime.now().strftime("%Y-%m-%d %H:%M:%S"), main_clean, star_clean, count))
-                    st.markdown(f"**#{i}** → 🎱 {main_clean} ✨ {star_clean}")
-                    st.text(f"Simulated wins: {count:,} out of {draws:,}")
+    st.subheader("🔝 Top 5 Predicted Combinations")
+    for i, ((main, star), count) in enumerate(top_combos, 1):
+        # Fixed conversion
+        main_clean = [int(x.item()) if hasattr(x, 'item') else int(x) for x in main]
+        star_clean = [int(x.item()) if hasattr(x, 'item') else int(x) for x in star]
+        
+        archive.append((datetime.now().strftime("%Y-%m-%d %H:%M:%S"), main_clean, star_clean, count))
+        st.markdown(f"**#{i}** → 🎱 {main_clean} ✨ {star_clean}")
+        st.text(f"Simulated wins: {count:,} out of {draws:,}")
+
 
                 all_main = [num for combo in abs_model.results for num in combo[0]]
                 all_stars = [num for combo in abs_model.results for num in combo[1]]
