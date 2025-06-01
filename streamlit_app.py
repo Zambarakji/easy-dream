@@ -65,6 +65,10 @@ if uploaded_file:
                     main_clean = [int(x.item()) if hasattr(x, 'item') else int(x) for x in list(main)]
                     star_clean = [int(x.item()) if hasattr(x, 'item') else int(x) for x in list(star)]
                     archive.append((datetime.now().strftime("%Y-%m-%d %H:%M:%S"), main_clean, star_clean, count))
+                    
+                    print("DEBUG MAIN:", main, type(main), [type(x) for x in main])
+                    print("DEBUG CLEAN:", main_clean, type(main_clean), [type(x) for x in main_clean])
+                    
                     st.markdown(f"**#{i}** → 🎱 {main_clean} ✨ {star_clean}")
                     st.text(f"Simulated wins: {count:,} out of {draws:,}")
 
