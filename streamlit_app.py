@@ -57,11 +57,9 @@ if uploaded_file:
 
                 if view_mode == "Predictions":
                     st.subheader("🎯 Top 5 Predictions")
-                    for i, ((main, star), count) in enumerate(top_combos, 1):
-                        # ALWAYS convert to int for clean output!
-                        main_clean = [int(x) for x in main]
-                        star_clean = [int(x) for x in star]
-                        probability = (count / draws) * 100
+                        for i, ((main, star), count) in enumerate(top_combos, 1):
+                        main_clean = [int(x.item()) if hasattr(x, 'item') else int(x) for x in main]
+                        star_clean = [int(x.item()) if hasattr(x, 'item') else int(x) for x in star]
                         st.markdown(f"**#{i}** → 🎱 {main_clean} ✨ {star_clean}")
                         st.text(f"Simulated wins: {count:,} out of {draws:,}")
 
