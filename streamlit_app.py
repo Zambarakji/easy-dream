@@ -61,7 +61,7 @@ if uploaded_file:
                     main_clean = [int(x) for x in main]
     star_clean = [int(x) for x in star]
     st.markdown(f"**#{i}** → 🎱 {main_clean} ✨ {star_clean}")
-                    st.text(f"Simulated wins: {count:,} of {draws:,}")
+                    st.text(f"Simulated wins: {count:,} out of {draws:,}")
 
                 all_main = [num for combo in abs_model.results for num in combo[0]]
                 all_stars = [num for combo in abs_model.results for num in combo[1]]
