@@ -68,8 +68,8 @@ if uploaded_file:
                     st.markdown(f"**#{i}** → 🎱 {main_clean} ✨ {star_clean}")
                     st.text(f"Simulated wins: {count:,} out of {draws:,}")
 
-                all_main = [num for combo in abs_model.results for num in combo[0]]
-                all_stars = [num for combo in abs_model.results for num in combo[1]]
+            main_clean = [int(x.item()) if hasattr(x, 'item') else int(x) for x in list(main)]
+            star_clean = [int(x.item()) if hasattr(x, 'item') else int(x) for x in list(star)]
 
                 col1, col2 = st.columns(2)
                 with col1:
@@ -103,3 +103,4 @@ else:
     st.info("📂 Please upload your CSV draw history.")
 
 st.markdown(""<div class='footer'></div>""", unsafe_allow_html=True)
+st.markdown(f"**#{i}** → 🎱 {main_clean} ✨ {star_clean}")
