@@ -1,5 +1,4 @@
-
-# streamlit_app.py (Corrected Output Formatting Version)
+# streamlit_app.py (Ultimate Clean Output Version)
 
 import streamlit as st
 import pandas as pd
@@ -62,8 +61,8 @@ if uploaded_file:
             if view_option == "Predictions":
                 st.subheader("🔝 Top 5 Predicted Combinations")
                 for i, ((main, star), count) in enumerate(top_combos, 1):
-                    main_clean = [int(x.item()) if hasattr(x, 'item') else int(x) for x in list(main)]
-                    star_clean = [int(x.item()) if hasattr(x, 'item') else int(x) for x in list(star)]
+                    main_clean = [int(x) for x in tuple(main)]
+                    star_clean = [int(x) for x in tuple(star)]
                     archive.append((datetime.now().strftime("%Y-%m-%d %H:%M:%S"), main_clean, star_clean, count))
                     st.markdown(f"**#{i}** → 🎱 {main_clean} ✨ {star_clean}")
                     st.text(f"Simulated wins: {count:,} out of {draws:,}")
@@ -102,5 +101,4 @@ if uploaded_file:
 else:
     st.info("📂 Please upload your CSV draw history.")
 
-st.markdown(""<div class='footer'></div>""", unsafe_allow_html=True)
-
+st.markdown("""<div class='footer'></div>""", unsafe_allow_html=True)
