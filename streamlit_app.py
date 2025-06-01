@@ -42,8 +42,6 @@ with st.sidebar:
     view_option = st.radio("View Mode", ["Predictions", "Scientific View"])
     simulate_btn = st.button("🎲 Run Simulation")
 
-from datetime import datetime
-archive = []
 abs_model = ABSEngine(main_range=50, star_range=12, draws=draws)
 
 if uploaded_file:
@@ -62,7 +60,6 @@ if uploaded_file:
                 for i, ((main, star), count) in enumerate(top_combos, 1):
                     main_clean = [int(x) for x in main]
     star_clean = [int(x) for x in star]
-    archive.append((datetime.now().strftime("%Y-%m-%d %H:%M:%S"), main_clean, star_clean, count))
     st.markdown(f"**#{i}** → 🎱 {main_clean} ✨ {star_clean}")
                     st.text(f"Simulated wins: {count:,} out of {draws:,}")
 
