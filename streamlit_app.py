@@ -1,10 +1,12 @@
-# streamlit_app.py (Enhanced with Logo, Graphs, Scientific View)
+
+# streamlit_app.py (Cleaned, with Predictions Archive and Graphs)
 
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 from abs_engine import ABSEngine
+from datetime import datetime
 
 st.set_page_config(page_title="Easy Dream", layout="wide")
 
@@ -33,6 +35,8 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
+archive = []
+
 with st.sidebar:
     st.header("📥 Upload Draw History")
     uploaded_file = st.file_uploader("Choose your EuroMillions CSV", type="csv")
@@ -55,15 +59,14 @@ if uploaded_file:
             top_combos = abs_model.get_top_combinations(top_n=5)
             st.success("✅ Simulation complete!")
 
-        if view_option == "Predictions":
-    st.subheader("🔝 Top 5 Predicted Combinations")
-    for i, ((main, star), count) in enumerate(top_combos, 1):
-        main_clean = [int(x) for x in main]
-        star_clean = [int(x) for x in star]
-        archive.append((datetime.now().strftime("%Y-%m-%d %H:%M:%S"), main_clean, star_clean, count))
-        st.markdown(f"**#{i}** → 🎱 {main_clean} ✨ {star_clean}")
-        st.text(f"Simulated wins: {count:,} out of {draws:,}")
-
+            if view_option == "Predictions":
+                st.subheader("🔝 Top 5 Predicted Combinations")
+                for i, ((main, star), count) in enumerate(top_combos, 1):
+                    main_clean = [int(x) for x in main]
+                    star_clean = [int(x) for x in star]
+                    archive.append((datetime.now().strftime("%Y-%m-%d %H:%M:%S"), main_clean, star_clean, count))
+                    st.markdown(f"**#{i}** → 🎱 {main_clean} ✨ {star_clean}")
+                    st.text(f"Simulated wins: {count:,} out of {draws:,}")
 
                 all_main = [num for combo in abs_model.results for num in combo[0]]
                 all_stars = [num for combo in abs_model.results for num in combo[1]]
@@ -99,4 +102,4 @@ if uploaded_file:
 else:
     st.info("📂 Please upload your CSV draw history.")
 
-st.markdown("""<div class='footer'></div>""", unsafe_allow_html=True)
+st.markdown(""<div class='footer'></div>""", unsafe_allow_html=True)
