@@ -58,7 +58,9 @@ if uploaded_file:
             if view_option == "Predictions":
                 st.subheader("🔝 Top 5 Predicted Combinations")
                 for i, ((main, star), count) in enumerate(top_combos, 1):
-                    st.markdown(f"**#{i}** → 🎱 {main} ✨ {star}")
+                    main_clean = [int(x) for x in main]
+    star_clean = [int(x) for x in star]
+    st.markdown(f"**#{i}** → 🎱 {main_clean} ✨ {star_clean}")
                     st.text(f"Simulated wins: {count:,} of {draws:,}")
 
                 all_main = [num for combo in abs_model.results for num in combo[0]]
