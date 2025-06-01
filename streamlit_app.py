@@ -103,3 +103,4 @@ else:
     st.info("📂 Please upload your CSV draw history.")
 
 st.markdown(""<div class='footer'></div>""", unsafe_allow_html=True)
+
